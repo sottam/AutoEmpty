@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Source\AutoEmpty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\AutoEmptyMod.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

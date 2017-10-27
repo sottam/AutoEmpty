@@ -5,20 +5,7 @@ using ColossalFramework.Plugins;
 
 namespace AutoEmpty
 {
-    public class AutoEmpty : IUserMod
-    {
-        public String Name
-        {
-            get { return "Automatic Empty"; }
-        }
-
-        public String Description
-        {
-            get { return "Automatically starts emptying and stops whenever it finishes. Works for landfills and cemeteries"; }
-        }
-    }
-
-    public class Threader : ThreadingExtensionBase
+    public class Monitor : ThreadingExtensionBase
     {
         private BuildingManager _buildingManager;
         private CemeteryAI cemeteryAI;
@@ -36,7 +23,6 @@ namespace AutoEmpty
                 //OutputLogger.PrintMessage("Quantidade de Garbage buildings: " + garbageBuildings.m_size.ToString());
 
                 //OutputLogger.PrintMessage("Start Scanning " + threadingManager.simulationTick);
-                
 
                 var buffer = _buildingManager.m_buildings.m_buffer;
                 int amount = 0;
@@ -104,5 +90,5 @@ namespace AutoEmpty
             DebugOutputPanel.AddMessage(PluginManager.MessageType.Warning, prefix + message);
         }
     }
-    
+
 }
