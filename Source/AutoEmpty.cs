@@ -1,6 +1,4 @@
-﻿using System;
-using ICities;
-using UnityEngine;
+﻿using ICities;
 using ColossalFramework.Plugins;
 
 namespace AutoEmpty
@@ -58,7 +56,7 @@ namespace AutoEmpty
                             cemeteryAI.SetEmptying(deathCare, ref buffer[deathCare], true);
                             // OutputLogger.PrintMessage("Start Emptying Cemetary: " + amount);
                         }
-                        else if (!cemeteryAI.IsFull(deathCare, ref buffer[deathCare]))
+                        else if ( cemeteryAI.CanBeRelocated(deathCare, ref buffer[deathCare]) )
                         {
                             cemeteryAI.SetEmptying(deathCare, ref buffer[deathCare], false);
                             // OutputLogger.PrintMessage("Stop Emptying cemetary: " + amount);
