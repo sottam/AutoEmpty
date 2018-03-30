@@ -6,7 +6,7 @@ namespace AutoEmpty
     public class Monitor : ThreadingExtensionBase
     {
         private BuildingManager _buildingManager;
-        private CemeteryAI cemeteryAI;
+        //private CemeteryAI cemeteryAI;
         FastList<ushort> garbageBuildings, healthBuildings;
 
         public override void OnAfterSimulationTick()
@@ -17,10 +17,6 @@ namespace AutoEmpty
 
                 garbageBuildings = _buildingManager.GetServiceBuildings(ItemClass.Service.Garbage);
                 healthBuildings = _buildingManager.GetServiceBuildings(ItemClass.Service.HealthCare);
-
-                //OutputLogger.PrintMessage("Quantidade de Garbage buildings: " + garbageBuildings.m_size.ToString());
-
-                //OutputLogger.PrintMessage("Start Scanning " + threadingManager.simulationTick);
 
                 var buffer = _buildingManager.m_buildings.m_buffer;
                 int amount = 0;
@@ -34,12 +30,10 @@ namespace AutoEmpty
                         if (amount > 7600000)
                         {
                             _buildingAi.SetEmptying(serviceGarbage, ref buffer[serviceGarbage], true);
-                            //OutputLogger.PrintMessage("Start Emptying Landfill: " + serviceGarbage);
                         }
                         else if (amount < 400000)
                         {
                             _buildingAi.SetEmptying(serviceGarbage, ref buffer[serviceGarbage], false);
-                            //OutputLogger.PrintMessage("Stop Emptying Landfill: " + serviceGarbage);
                         }
                     }
                 }
@@ -49,17 +43,14 @@ namespace AutoEmpty
                     var _buildingAi = buffer[deathCare].Info.m_buildingAI;
                     if (_buildingAi is CemeteryAI)
                     {
-                        cemeteryAI = (CemeteryAI)_buildingAi;
-                        //amount = cemeteryAI.m_graveCount;
-                        if (cemeteryAI.IsFull(deathCare, ref buffer[deathCare]))
+                        //cemeteryAI = (CemeteryAI)_buildingAi;
+                        if (_buildingAi.IsFull(deathCare, ref buffer[deathCare]))
                         {
-                            cemeteryAI.SetEmptying(deathCare, ref buffer[deathCare], true);
-                            // OutputLogger.PrintMessage("Start Emptying Cemetary: " + amount);
+                            _buildingAi.SetEmptying(deathCare, ref buffer[deathCare], true);
                         }
-                        else if ( cemeteryAI.CanBeRelocated(deathCare, ref buffer[deathCare]) )
+                        else if (_buildingAi.CanBeRelocated(deathCare, ref buffer[deathCare]) )
                         {
-                            cemeteryAI.SetEmptying(deathCare, ref buffer[deathCare], false);
-                            // OutputLogger.PrintMessage("Stop Emptying cemetary: " + amount);
+                            _buildingAi.SetEmptying(deathCare, ref buffer[deathCare], false);
                         }
                     }
                 }
